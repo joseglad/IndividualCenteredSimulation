@@ -2,11 +2,15 @@ package agents;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import constants.DirectionEnum;
 import constants.StateEnum;
 import helpers.Coordinate;
+import helpers.Empty;
 import helpers.Grid;
 import helpers.IDrawable;
 
@@ -20,7 +24,16 @@ public class Agent implements IDrawable {
 	private Grid grid;
 	private static int actionsNumber = 1;
 	private HashMap<DirectionEnum, Object> neighborhood;
+	private DirectionEnum currentDirection;
 	
+	public DirectionEnum getCurrentDirection() {
+		return currentDirection;
+	}
+
+	public void setCurrentDirection(DirectionEnum currentDirection) {
+		this.currentDirection = currentDirection;
+	}
+
 	private Boolean isToric = false;
 	public StateEnum getState() {
 		return state;
@@ -93,13 +106,13 @@ public class Agent implements IDrawable {
 	
 	/**
 	 * The behaviour when the agent meet the border or another agent
+	 * @throws Exception 
 	 */
-	public void Decide() {
+	public void decide() throws Exception {
 		this.checkArround();
 		
-		int actionChoice = this.random.nextInt(this.actionsNumber);
-		switch (actionChoice)
-        {
+		int actionChoice = this.random.nextInt(Agent.actionsNumber);
+		switch (actionChoice) {
             case 0:
                 for (int i = 0; i < movement; i++)
                     this.actionMove();
@@ -117,13 +130,82 @@ public class Agent implements IDrawable {
 	}
 
 	private void actionNothing() {
-		// TODO Auto-generated method stub
+		// Nothing to do
 		
 	}
 
-	private void actionMove() {
-		// TODO Auto-generated method stub
+	private void actionMove() throws Exception {
+		int x = this.coordinate.getX();
+		int y = this.coordinate.getY();
+		// Choose the direction
+        DirectionEnum direction = this.decideDirection();
+        // Free the current position
+        this.grid.free(this.coordinate);
+
+        switch (direction)
+        {
+            case TopLeft:
+                this.coordinate.setX(x-1);
+                this.coordinate.setY(y-1);
+                break;
+            case Top:
+                this.coordinate.setY(y-1);
+                break;
+            case BottomLeft:
+                this.coordinate.setX(x+1);
+                this.coordinate.setY(y-1);
+                break;
+            case Left:
+                this.coordinate.setX(x-1);
+                break;
+            case BottomRight:
+                this.coordinate.setX(x+1);
+                this.coordinate.setY(y+1);
+                break;
+            case Bottom:
+                this.coordinate.setY(y+1);
+                break;
+            case TopRight:
+                this.coordinate.setX(x-1);
+                this.coordinate.setY(y+1);
+                break;
+            case Right:
+                this.coordinate.setX(x+1);
+                break;
+            case NoOne:
+                break;
+            default:
+                //Logger.WriteLog("Unknown direction : " + direction.ToString(), LogLevelL4N.ERROR);
+                break;
+        }
+
+        //Rectify Coordonate
+        this.coordinate = this.rectifyCoordonate(this.isToric, this.coordinate.getX(), this.coordinate.getY());
+
+        // Occupy the new position
+        this.grid.occupy(this.coordinate, this);		
+	}
+
+	private DirectionEnum decideDirection() {
+		List<DirectionEnum> possibleDirections = new LinkedList<DirectionEnum>();
 		
+		for(Entry<DirectionEnum, Object> entry : this.neighborhood.entrySet()) {
+			DirectionEnum key = entry.getKey();
+			Object value = entry.getValue();
+			
+			if(value != null && value instanceof Empty)
+				possibleDirections.add(key);
+		}
+
+        // Si la direction actuelle est toujours possible on conitnue dans la même direction.
+        if (possibleDirections.contains(this.currentDirection))
+            return this.currentDirection;
+
+        // Mélange les possibilités.
+        if (possibleDirections.size() > 0)
+            return this.currentDirection = possibleDirections.get(this.random.nextInt(possibleDirections.size()));
+
+        return DirectionEnum.NoOne;
 	}
 
 	private HashMap<DirectionEnum, Object> checkArround() {

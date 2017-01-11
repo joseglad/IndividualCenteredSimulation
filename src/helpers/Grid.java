@@ -16,6 +16,13 @@ public class Grid {
 		Helper.populate((Agent[][]) this.grid2D, new Empty());
 	}
 	
+	public void occupy(Coordinate coordinate, Object object) throws Exception {
+		if(this.grid2D[coordinate.getX()][coordinate.getY()] instanceof Empty)
+			throw new Exception("There is already an object to these coordinates in the grid. - " + coordinate);
+		
+		this.grid2D[coordinate.getX()][coordinate.getY()] = object;
+	}
+	
 	public Object getObject(Coordinate coordinate)
     {
         return this.getObject(coordinate.getX(), coordinate.getY());

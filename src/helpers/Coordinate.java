@@ -13,11 +13,14 @@ public class Coordinate {
 	 * This ToString is do simply to cast the object in a string formated in Json
 	 * @return
 	 */
-	/*
 	public String toString() {
-		return Json
+		String json = "{";
+		json += "\"x\": \""+x+"\"";
+		json += "\"y\": \""+y+"\"";
+		json += "}";
+		return json;
 	}
-	*/
+	
 
 	public int getX() {
 		return x;
