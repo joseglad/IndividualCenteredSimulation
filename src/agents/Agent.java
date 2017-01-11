@@ -15,7 +15,7 @@ import helpers.Grid;
 import helpers.IDrawable;
 
 public class Agent implements IDrawable {
-	private int id;
+	private int id = -1;
 	private Coordinate coordinate;
 	private int movement = 1;
 	private Color color;
@@ -25,6 +25,21 @@ public class Agent implements IDrawable {
 	private static int actionsNumber = 1;
 	private HashMap<DirectionEnum, Object> neighborhood;
 	private DirectionEnum currentDirection;
+	
+	private Random random;
+	
+	public Agent(Coordinate coordinate, Grid grid, int id) {
+		this.setCoordinate(coordinate);
+		this.setGrid(grid);
+		this.setId(id);
+	}
+	
+	public Agent(Coordinate coordinate, Color color, Grid grid, int id) {
+		this.setCoordinate(coordinate);
+		this.setColor(color);
+		this.setGrid(grid);
+		this.setId(id);
+	}
 	
 	public DirectionEnum getCurrentDirection() {
 		return currentDirection;
@@ -49,13 +64,6 @@ public class Agent implements IDrawable {
 
 	public void setneighborhood(HashMap<DirectionEnum, Object> neighborhood) {
 		this.neighborhood = neighborhood;
-	}
-
-	private Random random;
-	
-	public Agent(Coordinate coordinate, int id) {
-		this.setCoordinate(coordinate);
-		this.setId(id);
 	}
 
 	@Override
