@@ -63,6 +63,7 @@ public class MultiAgentSystem {
     {
         for(Agent agent: this.agents) {
             agent.decide();
+            System.out.println(agent.getId() + " " +agent.getCoordinate());
         }
     }
 	
