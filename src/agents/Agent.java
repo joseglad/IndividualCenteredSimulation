@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import constants.Constants;
 import constants.DirectionEnum;
 import constants.StateEnum;
 import helpers.Coordinate;
@@ -26,7 +27,7 @@ public class Agent implements IDrawable {
 	private HashMap<DirectionEnum, Object> neighborhood;
 	private DirectionEnum currentDirection;
 	
-	private Random random;
+	private Random random = new Random();
 	
 	public Agent(Coordinate coordinate, Grid grid, int id) {
 		this.setCoordinate(coordinate);
@@ -119,7 +120,7 @@ public class Agent implements IDrawable {
 	public void decide() throws Exception {
 		this.checkArround();
 		
-		int actionChoice = this.random.nextInt(Agent.actionsNumber);
+		int actionChoice = this.random.nextInt(this.actionsNumber);
 		switch (actionChoice) {
             case 0:
                 for (int i = 0; i < movement; i++)

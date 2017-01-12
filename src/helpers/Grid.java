@@ -1,23 +1,25 @@
 package helpers;
 
 import agents.Agent;
+import constants.Constants;
+import helpers.Coordinate;
 
 public class Grid {
 	private int xSize;
 	private int ySize;
-	private Object[][] grid2D;
+	private IDrawable[][] grid2D;
 	
 	public Grid(int xSize, int ySize) {
 		super();
 		this.xSize = xSize;
 		this.ySize = ySize;
 		
-		this.grid2D = new Object[this.xSize][this.ySize];
-		Helper.populate((Agent[][]) this.grid2D, new Empty());
+		this.grid2D = new IDrawable[this.xSize][this.ySize];
+		Helper.populate(this.grid2D, (IDrawable) new Empty());
 	}
 	
-	public void occupy(Coordinate coordinate, Object object) throws Exception {
-		if(this.grid2D[coordinate.getX()][coordinate.getY()] instanceof Empty)
+	public void occupy(Coordinate coordinate, IDrawable object) throws Exception {
+		if(!(this.grid2D[coordinate.getX()][coordinate.getY()] instanceof Empty))
 			throw new Exception("There is already an object to these coordinates in the grid. - " + coordinate);
 		
 		this.grid2D[coordinate.getX()][coordinate.getY()] = object;
@@ -41,6 +43,13 @@ public class Grid {
     	if(this.getObject(coordinate) != null)
     		this.grid2D[coordinate.getX()][coordinate.getY()] = new Empty();
     }
+
+	public Coordinate cellNumberToXYCoordinate(int cellNumber) {
+		int x = cellNumber % Constants.DEFAULT_GRID_SIZE_X;
+        int y = (cellNumber - x) / Constants.DEFAULT_GRID_SIZE_X;
+
+        return new Coordinate(x, y);
+	}
 	
 	
 }

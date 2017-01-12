@@ -7,12 +7,9 @@ public class Helper {
 	 * @param array
 	 * @param value
 	 */
-    public static void populate(IDrawable[][] array, IDrawable value)
-    {
-        for (int i = 0; i < array[0].length; i++)
-        {
-            for (int j = 0; j < array.length; j++)
-            {
+    public static void populate(IDrawable[][] array, IDrawable value) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
                 array[i][j] = value;
             }
         }

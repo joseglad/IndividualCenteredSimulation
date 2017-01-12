@@ -14,7 +14,7 @@ public class Constants {
     public static final int DEFAULT_SEED = 0;
     public static final int DEFAULT_RATE_REFRESH = 1;
     public static final SchedulingStrategyEnum DEFAULT_SCHEDULING_STRATEGY = SchedulingStrategyEnum.Fair;
-    public static final int DEFAULT_AGENTS_NUMBER = 100;
+    public static final int DEFAULT_AGENTS_NUMBER = 10;
     public static final Boolean DEFAULT_IS_TRACED_PERFORMANCE = false;
     public static final Boolean DEFAULT_IS_DISPLAY_AXE = false;
     public static final Boolean DEFAULT_IS_TORIC = false;
