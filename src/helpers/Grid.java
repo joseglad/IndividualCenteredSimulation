@@ -15,7 +15,7 @@ public class Grid {
 		this.ySize = ySize;
 		
 		this.grid2D = new IDrawable[this.xSize][this.ySize];
-		Helper.populate(this.grid2D, (IDrawable) new Empty());
+		Helper.populate(this.grid2D, new Empty());
 	}
 	
 	public void occupy(Coordinate coordinate, IDrawable object) throws Exception {

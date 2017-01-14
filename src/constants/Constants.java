@@ -2,12 +2,12 @@ package constants;
 
 public class Constants {
 	// Default values
-    public static final int DEFAULT_GRID_SIZE_X = 25;
-    public static final int DEFAULT_GRID_SIZE_Y = 25;
-    public static final int DEFAULT_CANVAS_SIZE_X = 500;
-    public static final int DEFAULT_CANVAS_SIZE_Y = 500;
-    public static final int DEFAULT_BOX_SIZE = 20;
-    public static final int DEFAULT_DELAY_MILLISECONDE = 1000;
+    public static final int DEFAULT_GRID_SIZE_X = 100;
+    public static final int DEFAULT_GRID_SIZE_Y = 100;
+    public static final int DEFAULT_CANVAS_SIZE_X = 600;
+    public static final int DEFAULT_CANVAS_SIZE_Y = 600;
+    public static final int DEFAULT_BOX_SIZE = 5;
+    public static final int DEFAULT_DELAY_MILLISECONDE = 5;
     public static final int DEFAULT_TICKS_NUMBER = 100;
     public static final Boolean DEFAULT_IS_DISPLAY_GRID = true;
     public static final Boolean DEFAULT_IS_TRACED = false;
